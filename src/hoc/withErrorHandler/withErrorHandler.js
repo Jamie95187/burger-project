@@ -9,14 +9,21 @@ const withErrorHandler = ( WrappedComponent, axios ) => {
     }
 
     // Will be called before the child components are rendered
+    // Can intercept errors
     componentWillMount() {
-      axios.interceptors.request.use(req => {
+      this.reqInterceptor = axios.interceptors.request.use(req => {
         this.setState({error: null});
         return req;
       });
-      axios.interceptors.response.use(res => res, error => {
+      this.resInterceptor = axios.interceptors.response.use(res => res, error => {
         this.setState({error: error});
       });
+    }
+
+    // Clear up the interceptors if they are not used, don't create new interceptors each time BurgerBuilder is rerendered
+    componentWillUnmount(){
+      axios.interceptors.request.eject(this.reqInterceptor);
+      axios.interceptors.response.eject(this.resInterceptor);
     }
 
     errorConfirmHandler = () => {
