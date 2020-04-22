@@ -16,14 +16,14 @@ state = {
       .then(res => {
         // Get back res.data as javascript objects
         // console.log(res.data);
-        const fetchOrders = [];
+        const fetchedOrders = [];
         for (let key in res.data){
-          fetchOrders.push({
+          fetchedOrders.push({
             ...res.data[key],
             id: key
           });
         }
-        this.setState({loading: false, orders: fetchOrders});
+        this.setState({loading: false, orders: fetchedOrders});
       })
       .catch(err => {
         this.setState({loading: false});
@@ -33,8 +33,12 @@ state = {
   render () {
     return (
       <div>
-        <Order />
-        <Order />
+        {this.state.orders.map(order => (
+          <Order
+            key={order.id}
+            ingredients={order.ingredients}
+            price={order.price}/>
+        ))}
       </div>
     );
   }
