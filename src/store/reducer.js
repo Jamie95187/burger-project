@@ -10,7 +10,14 @@ const initialState = {
   totalPrice: 4
 };
 
-const reducer = (state = initalState, action) => {
+const INGREDIENT_PRICES = {
+  salad: 0.5,
+  cheese: 0.4,
+  bacon: 1.1,
+  meat: 1.8
+}
+
+const reducer = (state = initialState, action) => {
   switch (action.type) {
     case actionTypes.ADD_INGREDIENT:
       return {
@@ -19,15 +26,18 @@ const reducer = (state = initalState, action) => {
           ...state.ingredients,
           // Overrides the correct property of the object special ES6 function
           [action.ingredientName]: state.ingredients[action.ingredientName] + 1
-        }
+        },
+        totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
       };
     case actionTypes.REMOVE_INGREDIENT:
       return {
         ...state,
         ingredients: {
           ...state.ingredients,
-          [action.ingredientName]: state.ingredients[action.ingredientName] - 1,
-      };
+          [action.ingredientName]: state.ingredients[action.ingredientName] - 1
+        },
+        totalPrice: state.totalPrice - INGREDIENT_PRICES[action.ingredientName]
+      }
     default:
       return state;
   }
