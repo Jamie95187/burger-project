@@ -12,7 +12,6 @@ import { connect } from 'react-redux';
 
 class BurgerBuilder extends Component {
   state = {
-    purchasable: false,
     // Could argue that the three below are Local UI state
     purchasing: false,
     loading: false,
@@ -38,7 +37,7 @@ class BurgerBuilder extends Component {
       .reduce((sum, el) => {
         return sum+el;
       }, 0);
-      this.setState({purchasable: sum > 0});
+      return sum > 0;
   }
 
   purchaseHandler = () => {
@@ -50,19 +49,9 @@ class BurgerBuilder extends Component {
   }
 
   purchaseContinueHandler = () => {
-    const queryParams = [];
-    for (let i in this.state.ingredients){
-      queryParams.push(encodeURIComponent(i) + '=' + encodeURIComponent(this.state.ingredients[i]));
-    }
-    // Push as a query params to Checkout component
-    queryParams.push('price=' + this.props.price);
-    const queryString = queryParams.join('&');
-    this.props.history.push({
-      pathname: '/checkout',
-      search: '?' + queryString
-    });
-
+    this.props.history.push('/checkout');
   }
+
   render() {
     const disabledInfo = {
       ...this.props.ing
@@ -83,7 +72,7 @@ class BurgerBuilder extends Component {
             disabled={disabledInfo}
             price={this.props.price}
             ordered={this.purchaseHandler}
-            purchasable={this.state.purchasable}/>
+            purchasable={this.updatePurchaseState(this.props.ings)}/>
         </Aux>
       );
       orderSummary = <OrderSummary
@@ -117,7 +106,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onIngredientAdded: (ingredName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingredName}),
-    onIngredientRemoved: (ingredName) => dispatch({type: actionTypes.ADD_INGREDIENT, ingredientName: ingredName})
+    onIngredientRemoved: (ingredName) => dispatch({type: actionTypes.REMOVE_INGREDIENT, ingredientName: ingredName})
   }
 }
 
