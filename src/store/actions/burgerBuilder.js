@@ -15,7 +15,6 @@ export const removeIngredient = (name) => {
   }
 }
 
-
 // Synchronous code to be passed into the async function
 export const setIngredients = (ingredients) => {
   return {
@@ -38,7 +37,7 @@ export const initIngredients = () => {
         dispatch(setIngredients(response.data));
       })
       .catch(error => {
-        dispatch(fetchIngredientsFailed)
+        dispatch(fetchIngredientsFailed())
       });
   };
 };
