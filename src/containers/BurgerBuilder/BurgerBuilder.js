@@ -10,7 +10,7 @@ import * as actions from '../../store/actions/index';
 import { connect } from 'react-redux';
 import axios from '../../axios-orders'
 
-class BurgerBuilder extends Component {
+export class BurgerBuilder extends Component {
   state = {
     // Could argue that the three below are Local UI state
     purchasing: false,
