@@ -14,7 +14,7 @@ class ContactData extends Component {
   state = {
     orderForm: {
         name: {
-          elemetType: 'input',
+          elementType: 'input',
           elementConfig: {
             type: 'text',
             placeholder: 'Your Name'
@@ -27,7 +27,7 @@ class ContactData extends Component {
           touched: false
         },
         street: {
-          elemetType: 'input',
+          elementType: 'input',
           elementConfig: {
             type: 'text',
             placeholder: 'Street'
@@ -40,7 +40,7 @@ class ContactData extends Component {
           touched: false
         },
         postcode: {
-          elemetType: 'input',
+          elementType: 'input',
           elementConfig: {
             type: 'text',
             placeholder: 'Post Code'
@@ -55,7 +55,7 @@ class ContactData extends Component {
           touched: false
         },
         country: {
-          elemetType: 'input',
+          elementType: 'input',
           elementConfig: {
             type: 'text',
             placeholder: 'Country'
@@ -68,7 +68,7 @@ class ContactData extends Component {
           touched: false
         },
         email: {
-          elemetType: 'input',
+          elementType: 'input',
           elementConfig: {
             type: 'email',
             placeholder: 'Your E-mail'
@@ -81,7 +81,7 @@ class ContactData extends Component {
           touched: false
         },
         deliveryMethod: {
-          elemetType: 'select',
+          elementType: 'select',
           elementConfig: {
             options: [
               {value: 'fastest', displayValue: 'Fastest'},
@@ -165,7 +165,7 @@ class ContactData extends Component {
         {formElementsArray.map(formElement => (
           <Input
             key={formElement.id}
-            elementType={formElement.config.elemetType}
+            elementType={formElement.config.elementType}
             elementConfig={formElement.config.elementConfig}
             value={formElement.config.value}
             invalid={!formElement.config.valid}
